@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shotgun Research"
+  short_description: "Fan out research across coding CLIs"
+  default_prompt: "Use $shotgun to run a multi-agent research pass on this question."
