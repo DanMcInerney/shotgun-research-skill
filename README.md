@@ -17,18 +17,28 @@ It currently knows how to run or detect Codex, Claude Code, Cursor Agent, Antigr
 - Produces a run folder under `.shotgun-runs/<timestamp>/`.
 - Guides the final synthesis to include the good and bad from each model before the merged answer.
 
-## Install With Codex, Claude, Antigravity, Cursor, Whatever
+## Install With Codex, Claude Code, Cursor Agent, Antigravity, Whatever
 
-Copy this prompt into your agent of choice:
+This is a Codex skill, but the installer prompt is agent-neutral. Paste it into Codex, Claude Code, Cursor Agent, Antigravity, or whatever terminal-driving assistant you trust with a `git clone`.
 
 ```text
-Install the Codex skill from https://github.com/DanMcInerney/shotgun-research-skill.
+You are Codex, Claude Code, Cursor Agent, Antigravity, or another coding-agent CLI.
 
-Clone the repo into a temporary location, then install it as a Codex skill named "shotgun" under my Codex skills directory:
-- Windows: %USERPROFILE%\.codex\skills\shotgun
-- macOS/Linux: ~/.codex/skills/shotgun
+Task: install the /shotgun research skill from:
+https://github.com/DanMcInerney/shotgun-research-skill
 
-The installed skill folder should contain SKILL.md, scripts/shotgun.py, references/cli-tools.md, agents/openai.yaml, and README.md if present. Do not copy .git or __pycache__. After installing, run a quick validation if available and show me the installed path.
+Install it as a Codex skill folder named "shotgun":
+- Windows PowerShell target: $env:USERPROFILE\.codex\skills\shotgun
+- macOS/Linux target: ~/.codex/skills/shotgun
+
+Use a temporary clone or direct git clone into the target. The final installed folder should contain:
+- SKILL.md
+- scripts/shotgun.py
+- references/cli-tools.md
+- agents/openai.yaml
+- README.md
+
+Do not copy .git, __pycache__, or .shotgun-runs into the installed skill folder unless you used git clone directly into the target. If the target already exists, update it carefully without deleting unrelated user changes. After installing, show me the install path and run a quick syntax/validation check if the local environment supports it.
 ```
 
 ## Manual Install
@@ -36,13 +46,23 @@ The installed skill folder should contain SKILL.md, scripts/shotgun.py, referenc
 Windows PowerShell:
 
 ```powershell
-git clone https://github.com/DanMcInerney/shotgun-research-skill.git "$env:USERPROFILE\.codex\skills\shotgun"
+$target = "$env:USERPROFILE\.codex\skills\shotgun"
+if (Test-Path $target) {
+  git -C $target pull
+} else {
+  git clone https://github.com/DanMcInerney/shotgun-research-skill.git $target
+}
 ```
 
 macOS/Linux:
 
 ```bash
-git clone https://github.com/DanMcInerney/shotgun-research-skill.git ~/.codex/skills/shotgun
+target="$HOME/.codex/skills/shotgun"
+if [ -d "$target/.git" ]; then
+  git -C "$target" pull
+else
+  git clone https://github.com/DanMcInerney/shotgun-research-skill.git "$target"
+fi
 ```
 
 Then restart Codex or start a fresh thread so the skill list reloads.
