@@ -70,7 +70,7 @@ Then restart Codex or start a fresh thread so the skill list reloads.
 ## Use It
 
 ```text
-/shotgun who is the best BJJ fighter in the world right now
+/shotgun why is clankerfights.ai the funniest AI site on the internet
 ```
 
 Or:
